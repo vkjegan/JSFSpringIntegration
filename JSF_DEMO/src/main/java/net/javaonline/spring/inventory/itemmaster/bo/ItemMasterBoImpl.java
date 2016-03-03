@@ -1,6 +1,7 @@
 package net.javaonline.spring.inventory.itemmaster.bo;
 
 import net.javaonline.spring.inventory.itemmaster.bo.dao.ItemMasterDAO;
+import net.javaonline.spring.inventory.itemmaster.bo.dao.ItemMasterDAOImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,13 +14,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ItemMasterBoImpl implements ItemMasterBo {
-	ItemMasterDAO itemMasterDao;
 	
+
 	public ItemMasterBoImpl(){}
-	
-	public ItemMasterBoImpl(ItemMasterDAO itemMasterDao){
-		this.itemMasterDao=itemMasterDao;
-	}
+
 	
 	public boolean addItem(String item_code,String item_name, float mrp, int stock) {
 		
@@ -39,6 +37,9 @@ public class ItemMasterBoImpl implements ItemMasterBo {
 		else
 		{
 		   //Calling Data Access Object
+			//This class may be injected using spring DI	
+			ItemMasterDAOImpl itemMasterDao=new ItemMasterDAOImpl();
+			
 			return itemMasterDao.add(item_code, item_name, mrp, stock);
 		}		
 	
